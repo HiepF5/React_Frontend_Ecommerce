@@ -1,8 +1,8 @@
 import React from 'react'
 import TitleList from '../../components/TitleList/TitleList'
-import Hero_1 from '../../assets/Hero_1.png'
-import Hero_2 from '../../assets/Hero_2.png'
-import Hero_3 from '../../assets/Hero_3.png'
+import Hero_1 from '../../assets/HomeImg/Hero_1.png'
+import Hero_2 from '../../assets/HomeImg/Hero_2.png'
+import Hero_3 from '../../assets/HomeImg/Hero_3.png'
 import CardFeedback from '../../components/Card/CardFeedback'
 
 const ProductsData = [

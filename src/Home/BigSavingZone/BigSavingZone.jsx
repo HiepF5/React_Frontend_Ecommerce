@@ -1,7 +1,7 @@
 import React from 'react'
-import BigSav_1 from '../../assets/Big_Sav_1.png'
-import BigSav_2 from '../../assets/Big_Sav_2.png'
-import BigSav_3 from '../../assets/Big_Sav_3.png'
+import BigSav_1 from '../../assets/HomeImg/Big_Sav_1.png'
+import BigSav_2 from '../../assets/HomeImg/Big_Sav_2.png'
+import BigSav_3 from '../../assets/HomeImg/Big_Sav_3.png'
 
 import TitleList from '../../components/TitleList/TitleList'
 import BigSavingFlat from './BigSavingFlat'

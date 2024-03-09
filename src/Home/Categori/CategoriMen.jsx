@@ -1,14 +1,14 @@
 import React from 'react'
 import TitleList from '../../components/TitleList/TitleList'
 import Card from '../../components/Card/Card'
-import Clothes_1 from '../../assets/Clothes_1.png'
-import Clothes_2 from '../../assets/Clothes_2.png'
-import Clothes_3 from '../../assets/Clothes_3.png'
-import Clothes_4 from '../../assets/Clothes_4.png'
-import Clothes_5 from '../../assets/Clothes_5.png'
-import Clothes_6 from '../../assets/Clothes_6.png'
-import Clothes_7 from '../../assets/Clothes_7.png'
-import Clothes_8 from '../../assets/Clothes_8.png'
+import Clothes_1 from '../../assets/HomeImg/Clothes_1.png'
+import Clothes_2 from '../../assets/HomeImg/Clothes_2.png'
+import Clothes_3 from '../../assets/HomeImg/Clothes_3.png'
+import Clothes_4 from '../../assets/HomeImg/Clothes_4.png'
+import Clothes_5 from '../../assets/HomeImg/Clothes_5.png'
+import Clothes_6 from '../../assets/HomeImg/Clothes_6.png'
+import Clothes_7 from '../../assets/HomeImg/Clothes_7.png'
+import Clothes_8 from '../../assets/HomeImg/Clothes_8.png'
 const ProductsData = [
   {
     id: 1,

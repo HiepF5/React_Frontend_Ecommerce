@@ -1,5 +1,5 @@
 import React from 'react'
-import Banner1 from '../../assets/banner_1.jpg'
+import Banner1 from '../../assets/HomeImg/banner_1.jpg'
 import Slider from 'react-slick'
 const ImageList = [
   {

@@ -1,6 +1,6 @@
 import React from 'react'
-import Left_Img from '../../assets/Left_fashion.png'
-import Right_Img from '../../assets/Right_fashion.png'
+import Left_Img from '../../assets/HomeImg/Left_fashion.png'
+import Right_Img from '../../assets/HomeImg/Right_fashion.png'
 const FashionBetter = () => {
   return (
     <div>

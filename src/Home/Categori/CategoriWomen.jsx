@@ -1,10 +1,10 @@
 import React from 'react'
 import TitleList from '../../components/TitleList/TitleList'
 import Card from '../../components/Card/Card'
-import Clothes_9 from '../../assets/Clothes_9.png'
-import Clothes_10 from '../../assets/Clothes_10.png'
-import Clothes_11 from '../../assets/Clothes_11.png'
-import Clothes_12 from '../../assets/Clothes_12.png'
+import Clothes_9 from '../../assets/HomeImg/Clothes_9.png'
+import Clothes_10 from '../../assets/HomeImg/Clothes_10.png'
+import Clothes_11 from '../../assets/HomeImg/Clothes_11.png'
+import Clothes_12 from '../../assets/HomeImg/Clothes_12.png'
 
 const ProductsData = [
   {

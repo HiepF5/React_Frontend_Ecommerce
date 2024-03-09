@@ -1,9 +1,9 @@
 import React from 'react'
 import TitleList from '../../components/TitleList/TitleList'
-import Product_1 from '../../assets/Product_1.png'
-import Product_2 from '../../assets/Product_2.png'
-import Product_3 from '../../assets/Product_3.png'
-import Product_4 from '../../assets/Product_4.png'
+import Product_1 from '../../assets/HomeImg/Product_1.png'
+import Product_2 from '../../assets/HomeImg/Product_2.png'
+import Product_3 from '../../assets/HomeImg/Product_3.png'
+import Product_4 from '../../assets/HomeImg/Product_4.png'
 import CardLimelight from '../../components/Card/CardLimelight'
 
 const ProductsData = [
@@ -24,7 +24,7 @@ const ProductsData = [
     aosDelay: '200'
   },
   {
-    id: 1,
+    id: 3,
     img: Product_3,
     title: 'Black Shorts',
     brand: 'MM Brand',
@@ -32,7 +32,7 @@ const ProductsData = [
     aosDelay: '200'
   },
   {
-    id: 2,
+    id: 4,
     img: Product_4,
     title: 'Levender Hoodie with Black',
     brand: 'Nike Brand',

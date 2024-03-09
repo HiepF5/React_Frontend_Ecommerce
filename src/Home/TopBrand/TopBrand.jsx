@@ -1,10 +1,9 @@
 import React from 'react'
-import NIKE from '../../assets/Nike.png'
-import HM from '../../assets/HM.png'
-import LEVI from '../../assets/LEVIS.png'
-import POLO from '../../assets/US.png'
-import PUMA from '../../assets/PUMA.png'
-import { data } from 'autoprefixer'
+import NIKE from '../../assets/HomeImg/Nike.png'
+import HM from '../../assets/HomeImg/HM.png'
+import LEVI from '../../assets/HomeImg/LEVIS.png'
+import POLO from '../../assets/HomeImg/US.png'
+import PUMA from '../../assets/HomeImg/PUMA.png'
 const BrandsData = [
   {
     id: 1,
@@ -43,12 +42,14 @@ const TopBrand = () => {
       <div className='bg-slate-700 h-[357px] text-white  flex flex-col gap-8 items-center justify-center'>
         <h1 className='text-5xl font-bold'>Top Brands Deal</h1>
         <p className='text-sm'>
-          Up To <span class='text-yellow-400'>60%</span> off on brands
+          Up To <span className='text-yellow-400'>60%</span> off on brands
         </p>
         <div className='flex gap-4 '>
           {BrandsData.map((data) => (
-            <div className='bg-white w-[177px] h-[85px] flex items-center justify-center'>
-              <img className=' object-contain' src={data.img} alt='' />
+            <div key={data.id}>
+              <div className='bg-white w-[177px] h-[85px] flex items-center justify-center'>
+                <img className=' object-contain' src={data.img} alt='' />
+              </div>
             </div>
           ))}
         </div>

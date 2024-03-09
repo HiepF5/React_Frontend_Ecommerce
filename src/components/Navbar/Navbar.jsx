@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../assets/Logo_Main.png'
+import Logo from '../../assets/HomeImg/Logo_Main.png'
 import { FiHeart } from 'react-icons/fi'
 import { AiOutlineShoppingCart, AiOutlineUserAdd } from 'react-icons/ai'
 import { CiSearch } from 'react-icons/ci'

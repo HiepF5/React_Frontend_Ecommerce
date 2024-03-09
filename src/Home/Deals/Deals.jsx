@@ -1,6 +1,6 @@
 import React from 'react'
-import Img1 from '../../assets/deals_1.jpg'
-import Img2 from '../../assets/deals_2.png'
+import Img1 from '../../assets/HomeImg/deals_1.jpg'
+import Img2 from '../../assets/HomeImg/deals_2.png'
 const ProductsData = [
   {
     id: 1,

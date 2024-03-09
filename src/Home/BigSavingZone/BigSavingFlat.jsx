@@ -1,6 +1,6 @@
 import React from 'react'
-import BigSav_4 from '../../assets/Big_Sav_4.png'
-import BigSav_5 from '../../assets/Big_Sav_5.png'
+import BigSav_4 from '../../assets/HomeImg/Big_Sav_4.png'
+import BigSav_5 from '../../assets/HomeImg/Big_Sav_5.png'
 import { IoIosArrowRoundDown } from 'react-icons/io'
 const ProductsData = [
   {
