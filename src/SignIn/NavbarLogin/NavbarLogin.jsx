@@ -1,25 +1,16 @@
 import React from 'react'
 import Logo from '../../assets/HomeImg/Logo_Main.png'
-import { FiHeart } from 'react-icons/fi'
-import { AiOutlineShoppingCart, AiOutlineUserAdd } from 'react-icons/ai'
 import { CiSearch } from 'react-icons/ci'
-import { IoIosLogIn } from 'react-icons/io'
-import { Link } from 'react-router-dom'
+import { IoMdArrowDropdown } from 'react-icons/io'
 
-const Navbar = () => {
+const NavbarLogin = () => {
   return (
     <div className='container px-[100px] py-4'>
       <div className='flex justify-around items-center'>
         <div className=''>
           <img className='' src={Logo} alt='' />
         </div>
-        <ul className='flex gap-12'>
-          <li className='font-bold'>Shop</li>
-          <li>Men</li>
-          <li>Women</li>
-          <li>Combos</li>
-          <li>Joggers</li>
-        </ul>
+
         <div className='relative group hidden sm:block'>
           <input
             type='text'
@@ -42,22 +33,16 @@ const Navbar = () => {
           />
         </div>
         <ul className='flex gap-4'>
-          <li className='p-3 bg-[#F6F6F6]'>
-            <FiHeart className='' />
-          </li>
-          <li className='p-3 bg-[#F6F6F6]'>
-            <AiOutlineUserAdd className='' />
-          </li>
-          <li className='p-3 bg-[#F6F6F6]'>
-            <AiOutlineShoppingCart className='' />
-          </li>
-          <Link to='/login' className='p-3 bg-[#F6F6F6]'>
-            <IoIosLogIn className='' />
-          </Link>
+          <div className='flex justify-center items-center border rounded px-8 p-2'>
+            <span>English(United States)</span>
+            <IoMdArrowDropdown />
+          </div>
+          <button className='border rounded bg-[#8A33FD] text-white px-8 p-2'>Login</button>
+          <button className='border rounded  text-[#8A33FD] px-8'>Sign Up</button>
         </ul>
       </div>
     </div>
   )
 }
 
-export default Navbar
+export default NavbarLogin

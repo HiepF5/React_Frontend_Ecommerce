@@ -15,7 +15,7 @@ import Footer from '../components/Footer/Footer'
 const Home = () => {
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar />
       <hr />
       <Banner />
       <Deals />
@@ -27,7 +27,7 @@ const Home = () => {
       <TopBrand />
       <LimeLight />
       <Feedback />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }

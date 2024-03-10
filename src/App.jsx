@@ -8,7 +8,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/mens' element={<Home />} />
@@ -20,7 +19,7 @@ function App() {
           <Route path='/cart' element={<Home />} />
           <Route path='/login' element={<SignIn />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   )
