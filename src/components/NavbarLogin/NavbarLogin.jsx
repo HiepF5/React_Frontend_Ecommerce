@@ -2,6 +2,7 @@ import React from 'react'
 import Logo from '../../assets/HomeImg/Logo_Main.png'
 import { CiSearch } from 'react-icons/ci'
 import { IoMdArrowDropdown } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 
 const NavbarLogin = () => {
   return (
@@ -37,8 +38,13 @@ const NavbarLogin = () => {
             <span>English(United States)</span>
             <IoMdArrowDropdown />
           </div>
-          <button className='border rounded bg-[#8A33FD] text-white px-8 p-2'>Login</button>
-          <button className='border rounded  text-[#8A33FD] px-8'>Sign Up</button>
+          <button className='border rounded bg-[#8A33FD] text-white px-8 p-2'>
+            <Link to='/Login'>Login </Link>
+          </button>
+
+          <button className='border rounded text-[#8A33FD] px-8'>
+            <Link to='/signUp'>Sign Up </Link>
+          </button>
         </ul>
       </div>
     </div>

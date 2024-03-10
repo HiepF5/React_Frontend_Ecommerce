@@ -1,16 +1,16 @@
 import React from 'react'
 import NavbarLogin from '../components/NavbarLogin/NavbarLogin'
-import MainSignIn from '../Login/SignIn/MainSignIn'
+import MainCreatePassword from '../Login/CreatePassword/MainCreatePassword'
 
-const SignIn = () => {
+const CreatePassword = () => {
   return (
     <div>
       <div>
         <NavbarLogin />
-        <MainSignIn />
+        <MainCreatePassword />
       </div>
     </div>
   )
 }
 
-export default SignIn
+export default CreatePassword
