@@ -6,6 +6,8 @@ import RePassword from './pages/RePassword'
 import CheckEmail from './pages/CheckEmail'
 import Verification from './pages/Verification'
 import CreatePassword from './pages/CreatePassword'
+import ProductsList from './pages/ProductsList'
+import ProductDetail from './pages/ProductDetail'
 
 function App() {
   return (
@@ -16,12 +18,13 @@ function App() {
           <Route path='/createpassword' element={<CreatePassword />} />
           <Route path='/verification' element={<Verification />} />
           <Route path='/checkemail' element={<CheckEmail />} />
-          <Route path='/product' element={<Home />}>
-            <Route path=':productId' element={<Home />} />
+          <Route path='/product' element={<ProductDetail />}>
+            <Route path=':productId' element={<ProductDetail />} />
           </Route>
           <Route path='/signUp' element={<SignUp />} />
           <Route path='/login' element={<SignIn />} />
           <Route path='/rePassword' element={<RePassword />} />
+          <Route path='/productList' element={<ProductsList />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>
