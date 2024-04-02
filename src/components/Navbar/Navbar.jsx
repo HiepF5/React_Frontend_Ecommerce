@@ -48,9 +48,9 @@ const Navbar = () => {
           <li className='p-3 bg-[#F6F6F6]'>
             <AiOutlineUserAdd className='' />
           </li>
-          <li className='p-3 bg-[#F6F6F6]'>
+          <Link to='/cart' className='p-3 bg-[#F6F6F6]'>
             <AiOutlineShoppingCart className='' />
-          </li>
+          </Link>
           <Link to='/login' className='p-3 bg-[#F6F6F6]'>
             <IoIosLogIn className='' />
           </Link>

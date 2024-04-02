@@ -1,8 +1,10 @@
 import React from 'react'
 import starIcon from '@assets/img/star_icon.png'
 import starDullIcon from '@assets/img/star_dull_icon.png'
+import { useAllProduct } from '../../Store/AllProductStore'
 
 function ProductDisplay({ product }) {
+  const addToCart = useAllProduct((state) => state.addToCart)
   return (
     <div className='container flex items-center justify-between mx-[170px]'>
       <div className='flex gap-[17px]'>
@@ -44,7 +46,12 @@ function ProductDisplay({ product }) {
             <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>XXL</div>
           </div>
         </div>
-        <button className='py-5 px-10 bg-red-500 text-white text-lg font-semibold rounded-lg'>ADD TO CART</button>
+        <button
+          onClick={() => addToCart(product.id)}
+          className='py-5 px-10 bg-red-500 text-white text-lg font-semibold rounded-lg'
+        >
+          ADD TO CART
+        </button>
         <p className='text-gray-700 text-base'>
           <span className='font-semibold'>Category:</span> Women , T-Shirt, Crop Top
         </p>

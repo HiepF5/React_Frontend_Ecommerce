@@ -8,8 +8,15 @@ import Verification from './pages/Verification'
 import CreatePassword from './pages/CreatePassword'
 import ProductsList from './pages/ProductsList'
 import ProductDetail from './pages/ProductDetail'
+import CartPage from './pages/CartPage'
+import { useAllProduct } from './Store/AllProductStore'
+import { useEffect } from 'react'
 
 function App() {
+  const fetch = useAllProduct((state) => state.fetch)
+  useEffect(() => {
+    fetch('http://localhost:5000/all_products')
+  }, [])
   return (
     <>
       <BrowserRouter>
@@ -25,6 +32,7 @@ function App() {
           <Route path='/login' element={<SignIn />} />
           <Route path='/rePassword' element={<RePassword />} />
           <Route path='/productList' element={<ProductsList />} />
+          <Route path='/cart' element={<CartPage />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

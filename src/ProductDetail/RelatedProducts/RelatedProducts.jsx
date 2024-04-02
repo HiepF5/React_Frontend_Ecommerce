@@ -1,5 +1,6 @@
 import React from 'react'
 import Item from '../Item/Item'
+import TitleList from '../../components/TitleList/TitleList'
 const data_products = [
   {
     id: '1',
@@ -33,10 +34,9 @@ const data_products = [
 function RelatedProducts() {
   return (
     <div className='container'>
+      <TitleList title='Similar Product' />
       <div className='flex flex-col items-center '>
-        <h1 className='text-3xl font-semibold text-gray-900'>Related Products</h1>
-        <hr className='w-[200px] h-[6px] bg-primary rounded-lg ' />
-        <div className='flex mt-10 gap-5'>
+        <div className='flex mt-10 gap-5 mb-10'>
           {data_products.map((item, i) => (
             <Item
               key={i}
