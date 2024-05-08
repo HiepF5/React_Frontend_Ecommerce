@@ -15,10 +15,24 @@ const Navbar = () => {
         </div>
         <ul className='flex gap-12'>
           <li className='font-bold'>Shop</li>
-          <li>Men</li>
-          <li>Women</li>
-          <li>Combos</li>
-          <li>Joggers</li>
+          <li>
+            <Link to='/iphone'>Iphone</Link>
+          </li>
+          <li>
+            <Link to='/samsung'>SamSung</Link>
+          </li>
+          <li>
+            <Link to='/xiaomi'>Xiaomi</Link>
+          </li>
+          <li>
+            <Link to='/nokia'>Nokia</Link>
+          </li>
+          <li>
+            <Link to='/oppo'>Oppo</Link>
+          </li>
+          <Link to='/admin'>
+            <li>Admin</li>
+          </Link>
         </ul>
         <div className='relative group hidden sm:block'>
           <input
@@ -42,9 +56,6 @@ const Navbar = () => {
           />
         </div>
         <ul className='flex gap-4'>
-          <li className='p-3 bg-[#F6F6F6]'>
-            <FiHeart className='' />
-          </li>
           <li className='p-3 bg-[#F6F6F6]'>
             <AiOutlineUserAdd className='' />
           </li>
