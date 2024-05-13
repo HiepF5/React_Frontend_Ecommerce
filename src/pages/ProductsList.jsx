@@ -5,8 +5,13 @@ import Introduction from '../ProductsList/Introduction/introduction'
 import BuyBestPrice from '../ProductsList/BuyBestPrice/BuyBestPrice'
 import Footer from '../components/Footer/Footer'
 import { useProducts } from '../Store/ProductsStore'
+
 const ProductsList = ({ category }) => {
-  useProducts.getState().setCategoryNow(category)
+  // Kiểm tra nếu category không phải là null trước khi cập nhật
+  if (category !== null) {
+    useProducts.getState().setCategoryNow(category)
+  }
+
   return (
     <div>
       <Navbar />

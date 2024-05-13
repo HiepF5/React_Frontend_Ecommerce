@@ -10,15 +10,8 @@ import { AiOutlineEdit } from 'react-icons/ai'
 import { MdDeleteOutline } from 'react-icons/md'
 import { useProducts } from '../../Store/ProductsStore'
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { CSVLink, CSVDownload } from 'react-csv'
-import import_ex from '../../assets/import.svg'
-import save from '../../assets/save.svg'
-import papa from 'papaparse'
-const ProductsAdmin = ({ handleOrderPopup }) => {
+const OrderAdmin = ({ handleOrderPopup }) => {
   const productsList = useProducts((state) => state.productsList)
-  const setProductsList = useProducts((state) => state.setProductsList)
-  const [dataExport, setDataExport] = useState([])
   const { fetch } = useProducts()
 
   const handleDelete = async (productId) => {
@@ -50,99 +43,12 @@ const ProductsAdmin = ({ handleOrderPopup }) => {
     try {
       await axios.put(`http://localhost:8081/api/products/${editProductId}`, editedProduct)
       await fetch('http://localhost:8081/api/products')
-      toast.success('Edit success')
       setEditProductId(null)
     } catch (error) {
       console.error('Error updating product:', error)
-      toast.error('Edit Error')
     }
   }
-  const getUsersExport = (event, done) => {
-    let result = []
-    if (productsList && productsList.length > 0) {
-      result.push(['Id', 'Name', 'Image', 'Price', 'Quantity', 'Sold', 'Brand', 'Description'])
-      productsList.map((item, index) => {
-        let arr = []
-        arr[0] = item.productsId
-        arr[1] = item.productName
-        arr[2] = item.image
-        arr[3] = item.price
-        arr[4] = item.quantity
-        arr[5] = item.sold
-        arr[6] = item.brand
-        arr[7] = item.description
-        result.push(arr)
-      })
-      setDataExport(result)
-      done()
-    }
-  }
-  const handleImportCSV = (event) => {
-    if (event.target && event.target.files && event.target.files[0]) {
-      let file = event.target.files[0]
-      if (file.type !== 'text/csv') {
-        toast.error('Please upload a csv file')
-        return
-      }
-      papa.parse(file, {
-        complete: function (result) {
-          let rawCSV = result.data
-          console.log(
-            rawCSV[0][0],
-            rawCSV[0][7],
-            rawCSV[0][1],
-            rawCSV[0][2],
-            rawCSV[0][3],
-            rawCSV[0][4],
-            rawCSV[0][5],
-            rawCSV[0][6],
-            rawCSV[0]
-          )
-          if (rawCSV.length > 0) {
-            if (rawCSV[0].length === 8) {
-              if (
-                rawCSV[0][0] !== 'Id' ||
-                rawCSV[0][1] !== 'Name' ||
-                rawCSV[0][2] !== 'Image' ||
-                rawCSV[0][3] !== 'Price' ||
-                rawCSV[0][4] !== 'Quantity' ||
-                rawCSV[0][5] !== 'Sold' ||
-                rawCSV[0][6] !== 'Brand' ||
-                rawCSV[0][7] !== 'Description'
-              ) {
-                toast.error('Please upload format Header csv file')
-                return
-              } else {
-                let result = []
-                rawCSV.map((item, index) => {
-                  console.log('Item', item)
-                  if (index > 0 && item.length === 8) {
-                    let arr = {}
-                    arr.productsId = item[0]
-                    arr.productName = item[1]
-                    arr.image = item[2]
-                    arr.price = item[3]
-                    arr.quantity = item[4]
-                    arr.sold = item[5]
-                    arr.brand = item[6]
-                    arr.description = item[7]
-                    result.push(arr)
-                    console.log(result)
-                  }
-                })
-                // chưa post lên db
-                setProductsList(result)
-              }
-            } else {
-              toast.error('Please format csv file')
-            }
-          } else {
-            toast.error('Not found data csv file')
-          }
-        }
-      })
-    }
-  }
+
   console.log(productsList)
   return (
     <div className=' flex flex-col gap-4'>
@@ -152,10 +58,10 @@ const ProductsAdmin = ({ handleOrderPopup }) => {
           <MdNavigateNext className='w-6 h-6 opacity-50' />
           <p className='text-[20px]'>Home</p>
           <MdNavigateNext className='w-6 h-6 opacity-50' />
-          <p className='text-[16px]'>Products</p>
+          <p className='text-[16px]'>Order</p>
         </div>
-        <div className='text-[30px] font-semibold'>All Products</div>
-        <div className='flex gap-3 items-center'>
+        <div className='text-[30px] font-semibold'>All Order</div>
+        <div className='flex gap-3'>
           <div>
             <input className='border py-1 px-3 rounded-lg w-[380px]' type='text' placeholder='Search for products' />
           </div>
@@ -166,31 +72,13 @@ const ProductsAdmin = ({ handleOrderPopup }) => {
               <RiErrorWarningLine className='w-6 h-6 opacity-50' />
               <CiMenuKebab className='w-6 h-6 opacity-50' />
             </div>
-            <div className='flex items-center gap-4'>
+            <div>
               <button className='flex items-center bg-red-500 px-2 py-1 rounded-md'>
                 <IoAdd className='w-6 h-6 opacity-50 text-white' />
                 <p className='text-white' onClick={handleOrderPopup}>
-                  Add product
+                  Add Order
                 </p>
               </button>
-              <label htmlFor='import_ex' className=' flex' style={{ backgroundColor: 'red', padding: '0.5rem' }}>
-                <img style={{ height: '1.25rem', marginBottom: '4px', marginRight: '6px' }} src={import_ex} />
-                <p> Import</p>
-              </label>
-              <input type='file' hidden id='import_ex' onChange={(event) => handleImportCSV(event)} />
-
-              <CSVLink
-                data={dataExport}
-                filename={'my-file.csv'}
-                target='_blank'
-                className='m-2 flex'
-                asyncOnClick={true}
-                onClick={getUsersExport}
-                style={{ backgroundColor: 'green', padding: '0.5rem' }} // Thêm style cho màu nền xanh lá cho nút export
-              >
-                <img style={{ height: '1.25rem', marginBottom: '4px', marginRight: '6px' }} src={save} />
-                <p>Export</p>
-              </CSVLink>
             </div>
           </div>
         </div>
@@ -297,7 +185,10 @@ const ProductsAdmin = ({ handleOrderPopup }) => {
                         Save
                       </button>
                     ) : (
-                      <button className='bg-sky-400 mx-2 px-2 py-1 rounded-lg' onClick={() => handleEdit(pr)}>
+                      <button
+                        className='bg-sky-400 text-white mx-2 px-2 py-1 rounded-lg'
+                        onClick={() => handleEdit(pr)}
+                      >
                         <AiOutlineEdit className='w-6 h-6 opacity-50' />
                       </button>
                     )}
@@ -318,4 +209,4 @@ const ProductsAdmin = ({ handleOrderPopup }) => {
   )
 }
 
-export default ProductsAdmin
+export default OrderAdmin

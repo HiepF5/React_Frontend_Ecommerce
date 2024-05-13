@@ -1,13 +1,14 @@
 import React from 'react'
 import remove_icon from '@assets/img/cart_cross_icon.png'
-import { useAllProduct } from '../Store/AllProductStore'
+import { useProducts } from '../Store/ProductsStore'
 
 function CartItems() {
-  const all_products = useAllProduct((state) => state.all_products)
-  const removeFromCart = useAllProduct((state) => state.removeFromCart)
-  const getTotalCartAmount = useAllProduct((state) => state.getTotalCartAmount)
-  const cart = useAllProduct((state) => state.cart)
-
+  const productsList = useProducts((state) => state.productsList)
+  const removeFromCart = useProducts((state) => state.removeFromCart)
+  const getTotalCartAmount = useProducts((state) => state.getTotalCartAmount)
+  const getCartItemsForCheckout = useProducts((state) => state.getCartItemsForCheckout)
+  const cart = useProducts((state) => state.cart)
+  console.log(cart)
   return (
     <div className='container'>
       <div className=' grid grid-cols-6 items-center gap-x-20 py-5 text-gray-700 font-semibold'>
@@ -19,16 +20,21 @@ function CartItems() {
         <p>Remove</p>
       </div>
       <hr className='my-5 border-t-2 border-gray-300' />
-      {all_products.map((e) => {
-        if (cart[e.id]) {
+      {productsList.map((e) => {
+        if (cart[e.productsId]) {
           return (
-            <div key={e.id} className=' flex items-center gap-x-20'>
-              <img src={e.image} alt='' className='cartItems-product-icon h-16' />
-              <p>{e.name}</p>
-              <p>${e.new_price}</p>
-              <button className='w-16 h-12 border border-gray-300 bg-white'>{cart[e.id]}</button>
-              <p>${e.new_price * cart[e.id]}</p>
-              <img src={remove_icon} onClick={() => removeFromCart(e.id)} alt='' className=' w-4 h-4 cursor-pointer' />
+            <div key={e.id} className=' grid grid-cols-6 gap-x-20'>
+              <img src={e.image} alt='' className='cartItems-product-icon h-16 w-16 col-span-1' />
+              <p className='col-span-1'>{e.productsName}</p>
+              <p>${e.price}</p>
+              <button className='col-span-1 w-16 h-12 border border-gray-300 bg-white'>{cart[e.productsId]}</button>
+              <p className='col-span-1'>${e.price * cart[e.productsId]}</p>
+              <img
+                src={remove_icon}
+                onClick={() => removeFromCart(e.id)}
+                alt=''
+                className=' col-span-1 w-4 h-4 cursor-pointer'
+              />
             </div>
           )
         }
@@ -60,7 +66,10 @@ function CartItems() {
           <p className='text-lg font-medium text-gray-700'>If you have a promo code, Enter it here</p>
           <div className=' mt-3 flex items-center'>
             <input type='text' placeholder='promo code' className='w-72 h-12 px-4 border border-gray-300' />
-            <button className='w-44 h-12 ml-4 bg-black text-white text-lg font-semibold rounded-md cursor-pointer'>
+            <button
+              className='w-44 h-12 ml-4 bg-black text-white text-lg font-semibold rounded-md cursor-pointer'
+              onClick={() => getCartItemsForCheckout()}
+            >
               Submit
             </button>
           </div>

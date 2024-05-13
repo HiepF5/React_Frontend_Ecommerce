@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { IoCloseOutline } from 'react-icons/io5'
 import { useProducts } from '../../Store/ProductsStore'
+import { toast } from 'react-toastify'
 
 export const AddProductAdmin = ({ orderPopup, setOrderPopup }) => {
   const [productName, setProductName] = useState('')
@@ -25,6 +26,7 @@ export const AddProductAdmin = ({ orderPopup, setOrderPopup }) => {
     }
     console.log(newProduct)
     addProduct(newProduct)
+    toast.success('Add success')
     // Reset form fields
     setProductName('')
     setQuantity('')

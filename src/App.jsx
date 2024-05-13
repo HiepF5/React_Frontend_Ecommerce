@@ -9,26 +9,25 @@ import CreatePassword from './pages/CreatePassword'
 import ProductsList from './pages/ProductsList'
 import ProductDetail from './pages/ProductDetail'
 import CartPage from './pages/CartPage'
-import { useAllProduct } from './Store/AllProductStore'
 import { useEffect } from 'react'
 import ProductsPageAdmin from './Admin/ProductAdmin/ProductsPageAdmin'
-import DashboardPageAdmin from './Admin/Dashboard/DashboardPageAdmin'
+import DashboardPageAdmin from './Admin/DashboardAdmin/DashboardPageAdmin'
 import { useProducts } from './Store/ProductsStore'
-
+import OrderPageAdmin from './Admin/OrderAdmin.jsx/OrderPageAdmin'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import StatisticalPageAdmin from './Admin/StatisticalAdmin/StatisticalPageAdmin'
 function App() {
   const fetch = useProducts((state) => state.fetch)
   useEffect(() => {
     fetch('http://localhost:8081/api/products')
   }, [])
-  // const fetch = useAllProduct((state) => state.fetch)
-  useEffect(() => {
-    fetch('http://localhost:5000/all_products')
-  }, [])
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />} />
+          {/* <Route path='/' element={<Home />} /> */}
+          <Route path='/' element={<ProductsList category={''} />} />
           <Route path='/createpassword' element={<CreatePassword />} />
           <Route path='/verification' element={<Verification />} />
           <Route path='/checkemail' element={<CheckEmail />} />
@@ -37,19 +36,35 @@ function App() {
           <Route path='/xiaomi' element={<ProductsList category='Xiaomi' />} />
           <Route path='/nokia' element={<ProductsList category='Nokia' />} />
           <Route path='/oppo' element={<ProductsList category='Oppo' />} />
+          <Route path='/shop' element={<ProductsList category={''} />} />
           <Route path='/product' element={<ProductDetail />}>
             <Route path=':productId' element={<ProductDetail />} />
           </Route>
           <Route path='/signUp' element={<SignUp />} />
           <Route path='/login' element={<SignIn />} />
           <Route path='/rePassword' element={<RePassword />} />
-          <Route path='/productList' element={<ProductsList />} />
           <Route path='/cart' element={<CartPage />} />
+          {/* router admin */}
           <Route path='/admin' element={<DashboardPageAdmin />} />
           <Route path='/admin/product' element={<ProductsPageAdmin />} />
+          <Route path='/admin/order' element={<OrderPageAdmin />} />
+          <Route path='/admin/statistical' element={<StatisticalPageAdmin />} />
+          {/* end admin */}
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </>
   )
 }

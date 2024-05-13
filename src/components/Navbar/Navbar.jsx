@@ -5,16 +5,20 @@ import { AiOutlineShoppingCart, AiOutlineUserAdd } from 'react-icons/ai'
 import { CiSearch } from 'react-icons/ci'
 import { IoIosLogIn } from 'react-icons/io'
 import { Link } from 'react-router-dom'
-
+import { Badge, Button } from '@material-tailwind/react'
+import { useProducts } from '../../Store/ProductsStore'
 const Navbar = () => {
+  const totalItem = useProducts((state) => state.totalItem)
   return (
     <div className='container px-[100px] py-4'>
       <div className='flex justify-around items-center'>
-        <div className=''>
-          <img className='' src={Logo} alt='' />
-        </div>
         <ul className='flex gap-12'>
-          <li className='font-bold'>Shop</li>
+          <li className='font-bold'>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/shop'>Shop</Link>
+          </li>
           <li>
             <Link to='/iphone'>Iphone</Link>
           </li>
@@ -56,14 +60,24 @@ const Navbar = () => {
           />
         </div>
         <ul className='flex gap-4'>
-          <li className='p-3 bg-[#F6F6F6]'>
-            <AiOutlineUserAdd className='' />
-          </li>
-          <Link to='/cart' className='p-3 bg-[#F6F6F6]'>
-            <AiOutlineShoppingCart className='' />
+          <Link to='/cart' className='bg-[#F6F6F6]'>
+            <Badge content={totalItem}>
+              <Button>
+                <AiOutlineShoppingCart className='' />
+              </Button>
+            </Badge>
           </Link>
-          <Link to='/login' className='p-3 bg-[#F6F6F6]'>
-            <IoIosLogIn className='' />
+          <Link to='/login' className='bg-[#F6F6F6]'>
+            <Button variant='gradient' className='flex items-center gap-3'>
+              <AiOutlineUserAdd className='' />
+              User
+            </Button>
+          </Link>
+          <Link to='/login' className='bg-[#F6F6F6]'>
+            <Button variant='gradient' className='flex items-center gap-3'>
+              <IoIosLogIn className='' />
+              Login
+            </Button>
           </Link>
         </ul>
       </div>
