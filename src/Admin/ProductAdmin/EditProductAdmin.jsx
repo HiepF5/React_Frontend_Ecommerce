@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IoCloseOutline } from 'react-icons/io5'
 import { useProducts } from '../../Store/ProductsStore'
 import { toast } from 'react-toastify'
 
-export const AddProductAdmin = ({ orderPopup, setOrderPopup }) => {
+export const EditProductAdmin = ({ editPopup, setEditPopup, product }) => {
   const [productName, setProductName] = useState('')
   const [quantity, setQuantity] = useState('')
   const [price, setPrice] = useState('')
@@ -15,10 +15,26 @@ export const AddProductAdmin = ({ orderPopup, setOrderPopup }) => {
   const [imageUrl3, setImage3Url] = useState('')
   const [imageUrl4, setImage4Url] = useState('')
 
-  const addProduct = useProducts((state) => state.addProduct)
+  const updateProduct = useProducts((state) => state.updateProduct)
 
-  const handleAddProduct = () => {
-    const newProduct = {
+  useEffect(() => {
+    if (product) {
+      setProductName(product.productsName)
+      setQuantity(product.quantity)
+      setPrice(product.price)
+      setOldPrice(product.sold)
+      setBrand(product.brand)
+      setDescription(product.description)
+      setImageUrl(product.image)
+      setImage2Url(product.image2)
+      setImage3Url(product.image3)
+      setImage4Url(product.image4)
+    }
+  }, [product])
+
+  const handleUpdateProduct = () => {
+    const updatedProduct = {
+      ...product,
       productsName: productName,
       quantity: quantity,
       price: price,
@@ -30,107 +46,96 @@ export const AddProductAdmin = ({ orderPopup, setOrderPopup }) => {
       image3: imageUrl3,
       image4: imageUrl4
     }
-    console.log(newProduct)
-    addProduct(newProduct)
-    toast.success('Add success')
-    // Reset form fields
-    setProductName('')
-    setQuantity('')
-    setPrice('')
-    setOldPrice('')
-    setBrand('')
-    setDescription('')
-    setImageUrl('')
-    setImage2Url('')
-    setImage3Url('')
-    setImage4Url('')
-    // Close the popup
-    setOrderPopup(false)
+
+    updateProduct(updatedProduct)
+    toast.success('Update success')
+    setEditPopup(false)
   }
+
   return (
     <>
-      {orderPopup && (
+      {editPopup && (
         <div className='popup'>
           <div className='h-screen w-screen fixed top-0 left-0 bg-black/50 z-50 backdrop-blur-sm'>
             <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 shadow-md bg-white dark:bg-gray-900 rounded-md duration-200 w-[300px]'>
               {/* header */}
               <div className='flex items-center justify-between'>
                 <div>
-                  <h1>Thêm Điện Thoại</h1>
+                  <h1>Edit Product</h1>
                 </div>
                 <div>
-                  <IoCloseOutline className='text-2xl cursor-pointer ' onClick={() => setOrderPopup(false)} />
+                  <IoCloseOutline className='text-2xl cursor-pointer ' onClick={() => setEditPopup(false)} />
                 </div>
               </div>
               {/* form section */}
               <div className='mt-4'>
                 <input
                   type='text'
-                  placeholder='Tên Sản Phẩm'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Product Name'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={productName}
                   onChange={(e) => setProductName(e.target.value)}
                 />
                 <input
                   type='number'
-                  placeholder='Số lương'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Quantity'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Giá'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Price'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Giá cũ'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Old Price'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={oldPrice}
                   onChange={(e) => setOldPrice(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Hãng (Brand) '
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Brand'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Mô Tả'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Description'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Link ảnh'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Image URL'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Link ảnh'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Image URL 2'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={imageUrl2}
                   onChange={(e) => setImage2Url(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Link ảnh'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Image URL 3'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={imageUrl3}
                   onChange={(e) => setImage3Url(e.target.value)}
                 />
                 <input
                   type='text'
-                  placeholder='Link ảnh'
-                  className=' w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
+                  placeholder='Image URL 4'
+                  className='w-full rounded-full border border-gray-300 dark:border-gray-500 dark:bg-gray-800 px-2 py-1 mb-4'
                   value={imageUrl4}
                   onChange={(e) => setImage4Url(e.target.value)}
                 />
@@ -138,9 +143,9 @@ export const AddProductAdmin = ({ orderPopup, setOrderPopup }) => {
                 <div className='flex justify-center'>
                   <button
                     className='bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-1 px-4 rounded-full '
-                    onClick={handleAddProduct}
+                    onClick={handleUpdateProduct}
                   >
-                    Thêm sản phẩm
+                    Update Product
                   </button>
                 </div>
               </div>

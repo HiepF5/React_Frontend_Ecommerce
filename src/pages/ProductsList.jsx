@@ -16,7 +16,7 @@ const ProductsList = ({ category }) => {
     <div>
       <Navbar />
       <Sidebar />
-      <Introduction />
+      {/* <Introduction /> */}
       <BuyBestPrice />
       <Footer />
     </div>

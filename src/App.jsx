@@ -32,7 +32,7 @@ function App() {
           <Route path='/verification' element={<Verification />} />
           <Route path='/checkemail' element={<CheckEmail />} />
           <Route path='/iphone' element={<ProductsList category='Iphone' />} />
-          <Route path='/samsung' element={<ProductsList category='Samsung' />} />
+          <Route path='/samsung' element={<ProductsList category='SamSung' />} />
           <Route path='/xiaomi' element={<ProductsList category='Xiaomi' />} />
           <Route path='/nokia' element={<ProductsList category='Nokia' />} />
           <Route path='/oppo' element={<ProductsList category='Oppo' />} />
