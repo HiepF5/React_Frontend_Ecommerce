@@ -120,7 +120,7 @@ export default function Sidebar() {
                 <ColorFilter options={filters[0].options} />
 
                 {/* Category Filter */}
-                <CategoryFilter options={filters[1].options} />
+                {/* <CategoryFilter options={filters[1].options} /> */}
 
                 {/* Size Filter */}
                 <SizeFilter options={filters[2].options} />

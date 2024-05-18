@@ -17,12 +17,12 @@ const Navbar = () => {
           Products
         </Link>
       </div>
-      {/* <div className='p-4 flex items-center gap-3'>
+      <div className='p-4 flex items-center gap-3'>
         <IoMdPhonePortrait className='w-6 h-6 opacity-50' />
         <Link to='/admin/order' className='text-[16px]'>
           Order
         </Link>
-      </div> */}
+      </div>
       <div className='p-4 flex items-center gap-3'>
         <IoMdPhonePortrait className='w-6 h-6 opacity-50' />
         <Link to='/admin/statistical' className='text-[16px]'>

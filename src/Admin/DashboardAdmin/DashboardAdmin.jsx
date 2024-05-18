@@ -9,6 +9,10 @@ import axios from 'axios'
 function DashboardAdmin() {
   const [ordersData, setOrdersData] = useState([])
   const [users, setUsers] = useState([])
+  const [top1month, setTop1month] = useState([])
+  const [totalOrders, setTotalOrders] = useState(0)
+  const [totalTotalOrderAmount, setTotalTotalOrderAmount] = useState(0)
+  const [countUser, setCountUser] = useState(0)
 
   useEffect(() => {
     const fetchTop5Users = async () => {
@@ -20,62 +24,43 @@ function DashboardAdmin() {
       }
     }
 
-    fetchTop5Users()
-  }, [])
-  const [top1month, setTop1month] = useState([])
-
-  useEffect(() => {
     const fetchTop1Month = async () => {
       try {
         const response = await axios.get('http://localhost:8081/api/orders/month-with-most-orders')
         setTop1month(response.data)
       } catch (error) {
-        console.error('Error fetching top 5 users:', error)
+        console.error('Error fetching top month:', error)
       }
     }
 
-    fetchTop1Month()
-  }, [])
-  const [totalOrders, setTotalOrders] = useState(0)
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8081/api/orders/count')
-      .then((response) => {
+    const fetchTotalOrders = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/api/orders/count')
         setTotalOrders(response.data)
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Error fetching total orders:', error)
-      })
-  }, [])
-  const [totalTotalOrderAmount, setTotalTotalOrderAmount] = useState(0)
+      }
+    }
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8081/api/orders/totalAmount')
-      .then((response) => {
+    const fetchTotalOrderAmount = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/api/orders/totalAmount')
         setTotalTotalOrderAmount(response.data)
-      })
-      .catch((error) => {
-        console.error('Error fetching total orders:', error)
-      })
-  }, [])
-  const [countUser, setCountUser] = useState(0)
+      } catch (error) {
+        console.error('Error fetching total order amount:', error)
+      }
+    }
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8081/api/user/total')
-      .then((response) => {
+    const fetchCountUser = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/api/user/total')
         setCountUser(response.data)
-      })
-      .catch((error) => {
-        console.error('Error fetching total orders:', error)
-      })
-  }, [])
+      } catch (error) {
+        console.error('Error fetching total user count:', error)
+      }
+    }
 
-  useEffect(() => {
-    // Gọi API để lấy dữ liệu đơn hàng cho mỗi tháng từ tháng 1 đến tháng 12
-    const fetchData = async () => {
+    const fetchOrdersData = async () => {
       const data = []
       for (let i = 1; i <= 12; i++) {
         try {
@@ -87,11 +72,26 @@ function DashboardAdmin() {
       }
       setOrdersData(data)
     }
+
+    const fetchData = () => {
+      fetchTop5Users()
+      fetchTop1Month()
+      fetchTotalOrders()
+      fetchTotalOrderAmount()
+      fetchCountUser()
+      fetchOrdersData()
+    }
+
+    // Initial fetch
     fetchData()
+
+    // Polling every 5 minutes (300000 milliseconds)
+    const intervalId = setInterval(fetchData, 5000)
+
+    return () => clearInterval(intervalId)
   }, [])
 
   useEffect(() => {
-    // Khởi tạo biểu đồ khi dữ liệu đơn hàng thay đổi
     const ctx = document.getElementById('chart-line')
     if (ctx) {
       Chart.getChart(ctx)?.destroy()
@@ -102,7 +102,7 @@ function DashboardAdmin() {
           datasets: [
             {
               label: 'Doanh thu',
-              data: aggregateDataByMonth(ordersData), // Tổng hợp dữ liệu từ tất cả các tháng
+              data: aggregateDataByMonth(ordersData),
               borderColor: '#36a2eb',
               fill: false
             }
@@ -117,7 +117,6 @@ function DashboardAdmin() {
       })
     }
 
-    // Khởi tạo biểu đồ đơn hàng
     const ctx2 = document.getElementById('chart-bars')
     if (ctx2) {
       Chart.getChart(ctx2)?.destroy()
@@ -128,7 +127,7 @@ function DashboardAdmin() {
           datasets: [
             {
               label: 'Đơn hàng',
-              data: aggregateOrdersByMonth(ordersData), // Tổng hợp số đơn hàng từ tất cả các tháng
+              data: aggregateOrdersByMonth(ordersData),
               backgroundColor: '#ff6384'
             }
           ]
@@ -143,7 +142,6 @@ function DashboardAdmin() {
     }
   }, [ordersData])
 
-  // Hàm để tổng hợp dữ liệu doanh thu từ tất cả các tháng
   const aggregateDataByMonth = (data) => {
     const aggregatedData = new Array(12).fill(0)
     data.forEach((order) => {
@@ -153,7 +151,6 @@ function DashboardAdmin() {
     return aggregatedData
   }
 
-  // Hàm để tổng hợp số đơn hàng từ tất cả các tháng
   const aggregateOrdersByMonth = (data) => {
     const aggregatedOrders = new Array(12).fill(0)
     data.forEach((order) => {

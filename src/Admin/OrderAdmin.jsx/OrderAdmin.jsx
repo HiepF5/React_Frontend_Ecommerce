@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IoHomeSharp } from 'react-icons/io5'
 import { MdNavigateNext } from 'react-icons/md'
 import { IoIosSettings } from 'react-icons/io'
@@ -8,50 +8,60 @@ import { CiMenuKebab } from 'react-icons/ci'
 import { IoAdd } from 'react-icons/io5'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { MdDeleteOutline } from 'react-icons/md'
-import { useProducts } from '../../Store/ProductsStore'
 import axios from 'axios'
-const OrderAdmin = ({ handleOrderPopup }) => {
-  const productsList = useProducts((state) => state.productsList)
-  const { fetch } = useProducts()
 
-  const handleDelete = async (productId) => {
-    try {
-      await axios.delete(`http://localhost:8081/api/products/${productId}`)
-      await fetch('http://localhost:8081/api/products')
-    } catch (error) {
-      console.error('Error deleting product:', error)
-    }
-  }
-  const [editProductId, setEditProductId] = useState(null)
-  const [editedProduct, setEditedProduct] = useState({
-    productName: '',
-    price: 0,
-    quantity: 0,
-    sold: 0, // Thêm trường sold vào state
-    brand: '', // Thêm trường brand vào state
-    description: '' // Thêm trường description vào state
-    // Add other fields as needed
+const OrderAdmin = ({ handleOrderPopup }) => {
+  const [ordersList, setOrdersList] = useState([])
+  const [editOrderId, setEditOrderId] = useState(null)
+  const [editedOrder, setEditedOrder] = useState({
+    ordersId: '',
+    address: '',
+    date: '',
+    status: 0,
+    phoneNumber: '',
+    username: '',
+    total: 0
   })
 
-  const handleEdit = (product) => {
-    setEditProductId(product.productsId)
-    setEditedProduct({ ...product })
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get('http://localhost:8081/api/orders')
+      setOrdersList(response.data)
+    } catch (error) {
+      console.error('Error fetching orders:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchOrders()
+  }, [])
+
+  const handleDelete = async (orderId) => {
+    try {
+      await axios.delete(`http://localhost:8081/api/orders/${orderId}`)
+      fetchOrders()
+    } catch (error) {
+      console.error('Error deleting order:', error)
+    }
+  }
+
+  const handleEdit = (order) => {
+    setEditOrderId(order.ordersId)
+    setEditedOrder({ ...order })
   }
 
   const handleSaveEdit = async () => {
-    console.log(editedProduct)
     try {
-      await axios.put(`http://localhost:8081/api/products/${editProductId}`, editedProduct)
-      await fetch('http://localhost:8081/api/products')
-      setEditProductId(null)
+      await axios.put(`http://localhost:8081/api/orders/${editOrderId}`, editedOrder)
+      fetchOrders()
+      setEditOrderId(null)
     } catch (error) {
-      console.error('Error updating product:', error)
+      console.error('Error updating order:', error)
     }
   }
 
-  console.log(productsList)
   return (
-    <div className=' flex flex-col gap-4'>
+    <div className='flex flex-col gap-4'>
       <div className='bg-white gap-4 flex-col flex p-4 rounded-lg '>
         <div className='flex items-center '>
           <IoHomeSharp className='w-6 h-6 opacity-50' />
@@ -60,10 +70,10 @@ const OrderAdmin = ({ handleOrderPopup }) => {
           <MdNavigateNext className='w-6 h-6 opacity-50' />
           <p className='text-[16px]'>Order</p>
         </div>
-        <div className='text-[30px] font-semibold'>All Order</div>
+        <div className='text-[30px] font-semibold'>All Orders</div>
         <div className='flex gap-3'>
           <div>
-            <input className='border py-1 px-3 rounded-lg w-[380px]' type='text' placeholder='Search for products' />
+            <input className='border py-1 px-3 rounded-lg w-[380px]' type='text' placeholder='Search for orders' />
           </div>
           <div className='flex justify-between items-center w-full'>
             <div className='flex items-center gap-3'>
@@ -89,112 +99,108 @@ const OrderAdmin = ({ handleOrderPopup }) => {
           <thead className='text-center'>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Image</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Sold</th>
-              <th>Brand</th>
-              <th>Description</th>
+              <th>Address</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Phone Number</th>
+              <th>Username</th>
+              <th>Total</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody className='text-center'>
-            {productsList.map((pr, index) => (
+            {ordersList.map((order, index) => (
               <tr key={index} className='border border-slate-300 odd:bg-white even:bg-slate-50'>
-                <td>{pr.productsId}</td>
+                <td>{index + 1}</td>
                 <td>
-                  {editProductId === pr.productsId ? (
+                  {editOrderId === order.ordersId ? (
                     <input
                       className='w-full'
                       type='text'
-                      value={editedProduct.productsName}
-                      onChange={(e) => setEditedProduct({ ...editedProduct, productsName: e.target.value })}
+                      value={editedOrder.address}
+                      onChange={(e) => setEditedOrder({ ...editedOrder, address: e.target.value })}
                     />
                   ) : (
-                    pr.productsName
+                    order.address
                   )}
                 </td>
-                <td className='flex justify-center p-2'>
-                  <img className='w-[100px] h-[100px]' src={pr.image} alt='' />
+                <td>
+                  {editOrderId === order.ordersId ? (
+                    <input
+                      className='w-full'
+                      type='date'
+                      value={editedOrder.date}
+                      onChange={(e) => setEditedOrder({ ...editedOrder, date: e.target.value })}
+                    />
+                  ) : (
+                    order.date
+                  )}
                 </td>
                 <td>
-                  {editProductId === pr.productsId ? (
+                  {editOrderId === order.ordersId ? (
                     <input
                       className='w-full'
                       type='number'
-                      value={editedProduct.price}
-                      onChange={(e) => setEditedProduct({ ...editedProduct, price: e.target.value })}
+                      value={editedOrder.status}
+                      onChange={(e) => setEditedOrder({ ...editedOrder, status: e.target.value })}
                     />
                   ) : (
-                    pr.price
+                    order.status
                   )}
                 </td>
                 <td>
-                  {editProductId === pr.productsId ? (
-                    <input
-                      className='w-full'
-                      type='number'
-                      value={editedProduct.quantity}
-                      onChange={(e) => setEditedProduct({ ...editedProduct, quantity: e.target.value })}
-                    />
-                  ) : (
-                    pr.quantity
-                  )}
-                </td>
-                <td>
-                  {editProductId === pr.productsId ? (
-                    <input
-                      className='w-full'
-                      type='number'
-                      value={editedProduct.sold}
-                      onChange={(e) => setEditedProduct({ ...editedProduct, sold: e.target.value })}
-                    />
-                  ) : (
-                    pr.sold
-                  )}
-                </td>
-                <td>
-                  {editProductId === pr.productsId ? (
+                  {editOrderId === order.ordersId ? (
                     <input
                       className='w-full'
                       type='text'
-                      value={editedProduct.brand}
-                      onChange={(e) => setEditedProduct({ ...editedProduct, brand: e.target.value })}
+                      value={editedOrder.phoneNumber}
+                      onChange={(e) => setEditedOrder({ ...editedOrder, phoneNumber: e.target.value })}
                     />
                   ) : (
-                    pr.brand
+                    order.phoneNumber
                   )}
                 </td>
                 <td>
-                  {editProductId === pr.productsId ? (
+                  {editOrderId === order.ordersId ? (
                     <input
+                      className='w-full'
                       type='text'
-                      value={editedProduct.description}
-                      onChange={(e) => setEditedProduct({ ...editedProduct, description: e.target.value })}
+                      value={editedOrder.username}
+                      onChange={(e) => setEditedOrder({ ...editedOrder, username: e.target.value })}
                     />
                   ) : (
-                    pr.description
+                    order.username
                   )}
                 </td>
-                {/* Render other fields similarly */}
+                <td>
+                  {editOrderId === order.ordersId ? (
+                    <input
+                      className='w-full'
+                      type='number'
+                      value={editedOrder.total}
+                      onChange={(e) => setEditedOrder({ ...editedOrder, total: e.target.value })}
+                    />
+                  ) : (
+                    order.total
+                  )}
+                </td>
                 <td>
                   <div className='flex justify-around'>
-                    {editProductId === pr.productsId ? (
+                    {editOrderId === order.ordersId ? (
                       <button className='bg-green-500 text-white px-2 py-1 rounded-lg' onClick={handleSaveEdit}>
                         Save
                       </button>
                     ) : (
                       <button
                         className='bg-sky-400 text-white mx-2 px-2 py-1 rounded-lg'
-                        onClick={() => handleEdit(pr)}
+                        onClick={() => handleEdit(order)}
                       >
                         <AiOutlineEdit className='w-6 h-6 opacity-50' />
                       </button>
                     )}
                     <button
                       className='bg-red-500 text-white mx-2 px-2 py-1 rounded-lg'
-                      onClick={() => handleDelete(pr.productsId)}
+                      onClick={() => handleDelete(order.ordersId)}
                     >
                       <MdDeleteOutline className='w-6 h-6 opacity-50' />
                     </button>

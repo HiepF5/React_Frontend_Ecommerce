@@ -32,18 +32,18 @@ function ProductDisplay({ product }) {
           <div className='text-gray-500 line-through text-lg'>${product.price}</div>
           <div className='text-red-500 text-lg font-semibold'>${product.sold}</div>
         </div>
-        <p className='text-gray-600 text-base'>
+        {/* <p className='text-gray-600 text-base'>
           A lightweight, usually knitted, pullover shirt close-fitting and with a round neckline and short sleeves, worn
           as an undershirt or outer garment.
-        </p>
+        </p> */}
         <div>
           <h1 className='text-gray-700 text-lg font-semibold my-[35px]'>Select Size</h1>
           <div className='flex gap-5 '>
-            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>S</div>
-            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>M</div>
-            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>L</div>
-            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>XL</div>
-            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>XXL</div>
+            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>ĐEN</div>
+            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>ĐỎ</div>
+            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>Xanh</div>
+            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>Titan</div>
+            <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>Hồng</div>
           </div>
         </div>
         <button
@@ -52,12 +52,12 @@ function ProductDisplay({ product }) {
         >
           ADD TO CART
         </button>
-        <p className='text-gray-700 text-base'>
+        {/* <p className='text-gray-700 text-base'>
           <span className='font-semibold'>Category:</span> Women , T-Shirt, Crop Top
         </p>
         <p className='text-gray-700 text-base'>
           <span>Tags:</span> Modern , Latest
-        </p>
+        </p> */}
       </div>
     </div>
   )
