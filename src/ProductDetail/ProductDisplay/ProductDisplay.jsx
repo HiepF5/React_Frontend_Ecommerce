@@ -2,9 +2,20 @@ import React from 'react'
 import starIcon from '@assets/img/star_icon.png'
 import starDullIcon from '@assets/img/star_dull_icon.png'
 import { useProducts } from '../../Store/ProductsStore'
-
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 function ProductDisplay({ product }) {
   const addToCart = useProducts((state) => state.addToCart)
+  const navigate = useNavigate()
+
+  const handleAddToCart = () => {
+    const result = addToCart(product.productsId)
+    console.log(result)
+    if (result === 0) {
+      toast.error('Bạn cần đăng nhập để mua hàng')
+      navigate('/login')
+    }
+  }
   return (
     <div className='container flex items-center justify-between mx-[170px]'>
       <div className='flex gap-[17px]'>
@@ -46,10 +57,7 @@ function ProductDisplay({ product }) {
             <div className='text-gray-700 font-semibold p-4 border border-gray-300 rounded cursor-pointer'>Hồng</div>
           </div>
         </div>
-        <button
-          onClick={() => addToCart(product.productsId)}
-          className='py-5 px-10 bg-red-500 text-white text-lg font-semibold rounded-lg'
-        >
+        <button onClick={handleAddToCart} className='py-5 px-10 bg-red-500 text-white text-lg font-semibold rounded-lg'>
           ADD TO CART
         </button>
         {/* <p className='text-gray-700 text-base'>

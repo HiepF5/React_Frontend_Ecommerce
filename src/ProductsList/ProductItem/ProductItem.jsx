@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function ProductItem({ product }) {
-  console.log(product)
   return (
     <Link to={`/product/${product.productsId}`} onClick={window.scrollTo(0, 0)}>
       <div className='group relative '>

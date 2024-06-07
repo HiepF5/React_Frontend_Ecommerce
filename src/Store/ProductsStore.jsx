@@ -6,13 +6,16 @@ const productsStore = (set, get) => ({
   categoryNow: '',
   cart: {},
   totalItem: 0,
-
+  checkLogin: 0,
   fetch: async (url) => {
     const response = await axios.get(url)
     set({ productsList: response.data })
   },
   setCategoryNow: (category) => {
     set({ categoryNow: category })
+  },
+  setCheckLogin: () => {
+    set({ checkLogin: 1 })
   },
   setProductsList: (list) => {
     set({ productsList: list })
@@ -38,14 +41,19 @@ const productsStore = (set, get) => ({
     return cart
   },
   addToCart: (itemId) => {
-    const currentCart = get().cart
-    set({
-      cart: {
-        ...currentCart,
-        [itemId]: (currentCart[itemId] || 0) + 1
-      },
-      totalItem: get().totalItem + 1 // Increment totalItem
-    })
+    const checkLogin = get().checkLogin
+    if (checkLogin == true) {
+      const currentCart = get().cart
+      set({
+        cart: {
+          ...currentCart,
+          [itemId]: (currentCart[itemId] || 0) + 1
+        },
+        totalItem: get().totalItem + 1 // Increment totalItem
+      })
+    } else {
+      return 0
+    }
   },
   removeFromCart: (itemId) => {
     const currentCart = get().cart
@@ -86,6 +94,8 @@ const productsStore = (set, get) => ({
       console.error('Error adding product:', error)
     }
     get().getDefaultCart()
+    set({ cart: '' })
+    console.log(first)
     console.log(checkoutProducts)
     return checkoutProducts
   }

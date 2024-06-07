@@ -7,8 +7,10 @@ import { IoIosLogIn } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { Badge, Button } from '@material-tailwind/react'
 import { useProducts } from '../../Store/ProductsStore'
+import { useUsers } from '../../Store/UsersStore'
 const Navbar = () => {
   const totalItem = useProducts((state) => state.totalItem)
+  const userName = useUsers((state) => state.userData)
   return (
     <div className='container px-[100px] py-4'>
       <div className='flex justify-around items-center'>
@@ -70,7 +72,7 @@ const Navbar = () => {
           <Link to='/login' className='bg-[#F6F6F6]'>
             <Button variant='gradient' className='flex items-center gap-3'>
               <AiOutlineUserAdd className='' />
-              User
+              {userName.username}
             </Button>
           </Link>
           <Link to='/login' className='bg-[#F6F6F6]'>
