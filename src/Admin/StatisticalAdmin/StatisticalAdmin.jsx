@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useProducts } from '../../Store/ProductsStore'
 import axios from 'axios'
+import ChartReport from '../../Report/ChartReport'
 
 const StatisticalAdmin = () => {
   const [selectedValue, setSelectedValue] = useState('') // Giá trị mặc định là rỗng

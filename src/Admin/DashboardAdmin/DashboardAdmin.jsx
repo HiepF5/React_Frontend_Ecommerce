@@ -13,7 +13,12 @@ function DashboardAdmin() {
   const [totalOrders, setTotalOrders] = useState(0)
   const [totalTotalOrderAmount, setTotalTotalOrderAmount] = useState(0)
   const [countUser, setCountUser] = useState(0)
-
+  const [showPrint, setShowPrint] = useState(false)
+  const handlePrint = () => {
+    setShowPrint(true) // Khi nhấp vào nút "In", hiển thị danh sách sản phẩm
+    window.print() // Kích hoạt hành động in trình duyệt
+    setShowPrint(false) // Sau khi in xong, ẩn danh sách sản phẩm
+  }
   useEffect(() => {
     const fetchTop5Users = async () => {
       try {
@@ -259,6 +264,8 @@ function DashboardAdmin() {
           </div>
         </div>
       </div>
+      <button onClick={handlePrint}>Print</button>
+      {/* {showPrint && <ProductList products={products} />} */}
     </div>
   )
 }

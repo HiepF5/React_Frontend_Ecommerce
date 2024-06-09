@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { IoHomeSharp } from 'react-icons/io5'
 import { MdNavigateNext } from 'react-icons/md'
 import { IoIosSettings } from 'react-icons/io'
@@ -15,12 +15,25 @@ import { CSVLink, CSVDownload } from 'react-csv'
 import import_ex from '../../assets/import.svg'
 import save from '../../assets/save.svg'
 import papa from 'papaparse'
+import ReportProduct from '../../Report/ReportProduct'
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer'
+import jsPDF from 'jspdf'
+import ChartReport from '../../Report/ChartReport'
 const ProductsAdmin = ({ handleOrderPopup }) => {
+  const [showPDF, setShowPDF] = useState(false)
+  // const [data, setData] = useState([
+  //   { id: 1, name: 'Product 1', price: 100 },
+  //   { id: 2, name: 'Product 2', price: 200 },
+  //   { id: 3, name: 'Product 3', price: 300 }
+  // ])
+  const pdfRef = useRef(null)
+  const handleExportPDF = () => {
+    setShowPDF(true)
+  }
   const productsList = useProducts((state) => state.productsList)
   const setProductsList = useProducts((state) => state.setProductsList)
   const [dataExport, setDataExport] = useState([])
   const { fetch } = useProducts()
-
   const handleDelete = async (productId) => {
     try {
       await axios.delete(`http://localhost:8081/api/products/${productId}`)
@@ -314,6 +327,17 @@ const ProductsAdmin = ({ handleOrderPopup }) => {
           </tbody>
         </table>
       </div>
+      <button onClick={handleExportPDF}>Xuất Report Thống kê Sản Phẩm</button>
+      {showPDF && (
+        <>
+          <PDFViewer width='1000' height='600' ref={pdfRef}>
+            <ReportProduct productsList={productsList} />
+          </PDFViewer>
+          <PDFDownloadLink document={<ReportProduct productsList={productsList} />} fileName='report.pdf'>
+            {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+          </PDFDownloadLink>
+        </>
+      )}
     </div>
   )
 }

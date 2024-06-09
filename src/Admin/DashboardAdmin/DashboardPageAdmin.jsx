@@ -2,6 +2,8 @@ import React from 'react'
 import Header from '../componentsAdmin/HeaderAdmin'
 import Navbar from '../componentsAdmin/NavbarAdmin'
 import DashboardAdmin from './DashboardAdmin'
+import { useProducts } from '../../Store/ProductsStore'
+import ChartReport from '../../Report/ChartReport'
 
 const DashboardPageAdmin = () => {
   return (
