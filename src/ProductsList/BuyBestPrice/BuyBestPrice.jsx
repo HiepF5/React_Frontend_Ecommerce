@@ -1,52 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TitleList from '../../components/TitleList/TitleList'
 import ProductItem from '../ProductItem/ProductItem'
-const featuredProducts = [
-  {
-    name: 'iPhone 12 Pro Max',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/1.jpg?raw=true',
-    price: 'Giá: 1.099₫'
-  },
-  {
-    name: 'Samsung Galaxy S21 Ultra',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/2.jpg?raw=true',
-    price: 'Giá: 1.099₫'
-  },
-  {
-    name: 'Google Pixel 6 Pro',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/3.jpg?raw=true',
-    price: 'Giá: 1.399₫'
-  },
-  {
-    name: 'OnePlus 9 Pro',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/4.jpg?raw=true',
-    price: 'Giá: 499₫'
-  }
-]
+import { useUsers } from '../../Store/UsersStore'
 
-const otherProducts = [
-  {
-    name: 'Xiaomi Mi 11',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/5.jpg?raw=true',
-    price: 'Giá: 799₫'
-  },
-  {
-    name: 'Sony Xperia 1 III',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/6.jpg?raw=true',
-    price: 'Giá: 599₫'
-  },
-  {
-    name: 'LG Wing',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/1.jpg?raw=true',
-    price: 'Giá: 998₫'
-  },
-  {
-    name: 'Huawei P40 Pro',
-    image: 'https://github.com/HiepF5/Db_Ecommercer/blob/main/IPhone/IPhone%2012/2.jpg?raw=true',
-    price: 'Giá: 499₫'
-  }
-]
 function BuyBestPrice() {
+  const [featuredProducts, setFeaturedProducts] = useState([])
+  const [lastProducts, setLastProducts] = useState([])
+  const userData = useUsers((state) => state.userData)
+  const userId = userData.id ? userData.id : 1
+  useEffect(() => {
+    fetch(`http://localhost:8081/api/users/${userId}/mostPurchasedProducts`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Ensure data is an array before setting state
+        if (Array.isArray(data)) {
+          setFeaturedProducts(data)
+        } else {
+          // Handle the case when data is not an array
+          console.error('Expected an array but received:', data)
+        }
+      })
+      .catch((error) => console.error('Error fetching data:', error))
+  }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:8081/api/total-quantity')
+      .then((response) => response.json())
+      .then((data) => {
+        const formattedProducts = data.map((item) => ({
+          productsId: item[0],
+          productsName: item[1],
+          image: item[2],
+          price: item[3]
+        }))
+        setLastProducts(formattedProducts)
+      })
+      .catch((error) => console.error('Error fetching data:', error))
+  }, [])
   return (
     <div className='container'>
       <header className='bg-primary p-4 text-center'>
@@ -62,7 +52,7 @@ function BuyBestPrice() {
         </ul>
         <TitleList title='Sản phẩm khác' />
         <ul className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
-          {otherProducts.map((product, index) => (
+          {lastProducts.slice(0, 4).map((product, index) => (
             <ProductItem key={index} product={product} />
           ))}
         </ul>

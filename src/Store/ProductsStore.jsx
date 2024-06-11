@@ -7,12 +7,28 @@ const productsStore = (set, get) => ({
   cart: {},
   totalItem: 0,
   checkLogin: 0,
+  adjustPrice: 0,
+  shipCost: 30000,
+  giftProduct: 0,
+  brandKey: '',
   fetch: async (url) => {
     const response = await axios.get(url)
     set({ productsList: response.data })
   },
+  setBrandKey: (brandName) => {
+    set({ brandKey: brandName })
+  },
   setCategoryNow: (category) => {
     set({ categoryNow: category })
+  },
+  setAdjustPrice: (adjust) => {
+    set({ adjustPrice: adjust })
+  },
+  setShipCost: (cost) => {
+    set({ shipCost: cost })
+  },
+  setGiftProduct: (number) => {
+    set({ giftProduct: number })
   },
   setCheckLogin: () => {
     set({ checkLogin: 1 })
@@ -77,7 +93,7 @@ const productsStore = (set, get) => ({
     }
     return totalAmount
   },
-  getCartItemsForCheckout: async () => {
+  getCartItemsForCheckout: async (id) => {
     const cart = get().cart
     console.log(cart)
     const productsList = get().productsList
@@ -89,7 +105,7 @@ const productsStore = (set, get) => ({
       }
     })
     try {
-      const response = await axios.post('http://localhost:8081/api/orders/checkout?user_id=6', checkoutProducts)
+      const response = await axios.post(`http://localhost:8081/api/orders/checkout?user_id=${id}`, checkoutProducts)
     } catch (error) {
       console.error('Error adding product:', error)
     }

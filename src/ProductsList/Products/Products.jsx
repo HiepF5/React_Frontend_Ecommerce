@@ -5,6 +5,7 @@ import ProductItem from '../ProductItem/ProductItem'
 
 export default function Products() {
   const productsList = useProducts((state) => state.productsList)
+  const adjustPrice = useProducts((state) => state.adjustPrice)
   console.log(productsList)
 
   const categoryNow = useProducts((state) => state.categoryNow)
@@ -43,7 +44,7 @@ export default function Products() {
         <div className='mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {filteredProducts.map((product) => (
             <div key={product.productsId}>
-              <ProductItem product={product} />
+              <ProductItem product={product} adjustPrice={adjustPrice} />
             </div>
           ))}
         </div>

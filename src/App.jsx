@@ -17,6 +17,9 @@ import OrderPageAdmin from './Admin/OrderAdmin.jsx/OrderPageAdmin'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import StatisticalPageAdmin from './Admin/StatisticalAdmin/StatisticalPageAdmin'
+import KpiPageAdmin from './Admin/KpiAdmin/KpiPageAdmin'
+import FakeAdmin from './Admin/fakeAdmin/FakeAdmin'
+import FakePageAdmin from './Admin/fakeAdmin/fakePageAdmin'
 function App() {
   const fetch = useProducts((state) => state.fetch)
   useEffect(() => {
@@ -26,8 +29,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route path='/' element={<Home />} /> */}
-          <Route path='/' element={<ProductsList category={''} />} />
+          <Route path='/' element={<Home />} />
+          {/* <Route path='/' element={<ProductsList category={''} />} /> */}
           <Route path='/createpassword' element={<CreatePassword />} />
           <Route path='/verification' element={<Verification />} />
           <Route path='/checkemail' element={<CheckEmail />} />
@@ -49,6 +52,8 @@ function App() {
           <Route path='/admin/product' element={<ProductsPageAdmin />} />
           <Route path='/admin/order' element={<OrderPageAdmin />} />
           <Route path='/admin/statistical' element={<StatisticalPageAdmin />} />
+          <Route path='/admin/kpi' element={<KpiPageAdmin />} />
+          <Route path='/admin/selling' element={<FakePageAdmin />} />
           {/* end admin */}
         </Routes>
         {/* <Footer /> */}

@@ -1,16 +1,35 @@
 import React from 'react'
-import Logo from '../../assets/HomeImg/Logo_Main.png'
+import { Link, useNavigate } from 'react-router-dom'
 import { FiHeart } from 'react-icons/fi'
 import { AiOutlineShoppingCart, AiOutlineUserAdd } from 'react-icons/ai'
 import { CiSearch } from 'react-icons/ci'
 import { IoIosLogIn } from 'react-icons/io'
-import { Link } from 'react-router-dom'
 import { Badge, Button } from '@material-tailwind/react'
+import { toast } from 'react-toastify'
 import { useProducts } from '../../Store/ProductsStore'
 import { useUsers } from '../../Store/UsersStore'
+import Logo from '../../assets/HomeImg/Logo_Main.png'
+
 const Navbar = () => {
   const totalItem = useProducts((state) => state.totalItem)
-  const userName = useUsers((state) => state.userData)
+  const userData = useUsers((state) => state.userData)
+  const navigate = useNavigate()
+
+  const handleAdminClick = (e) => {
+    if (!userData || Object.keys(userData).length === 0) {
+      e.preventDefault()
+      toast.error('Bạn cần đăng nhập')
+      return
+    }
+
+    if (userData.role.some((role) => role.roleName === 'ADMIN')) {
+      navigate('/admin')
+    } else {
+      e.preventDefault()
+      toast.error('Bạn cần là admin')
+    }
+  }
+
   return (
     <div className='container px-[100px] py-4'>
       <div className='flex justify-around items-center'>
@@ -36,9 +55,11 @@ const Navbar = () => {
           <li>
             <Link to='/oppo'>Oppo</Link>
           </li>
-          <Link to='/admin'>
-            <li>Admin</li>
-          </Link>
+          <li>
+            <Link to='/admin' onClick={handleAdminClick}>
+              Admin
+            </Link>
+          </li>
         </ul>
         <div className='relative group hidden sm:block'>
           <input
@@ -72,7 +93,7 @@ const Navbar = () => {
           <Link to='/login' className='bg-[#F6F6F6]'>
             <Button variant='gradient' className='flex items-center gap-3'>
               <AiOutlineUserAdd className='' />
-              {userName.username}
+              {userData.username}
             </Button>
           </Link>
           <Link to='/login' className='bg-[#F6F6F6]'>

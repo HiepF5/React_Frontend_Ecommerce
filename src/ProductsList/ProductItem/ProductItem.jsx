@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function ProductItem({ product }) {
+function ProductItem({ product, adjustPrice }) {
+  adjustPrice = adjustPrice ? adjustPrice : 0
   return (
     <Link to={`/product/${product.productsId}`} onClick={window.scrollTo(0, 0)}>
       <div className='group relative '>
@@ -18,7 +19,14 @@ function ProductItem({ product }) {
             </h3>
             <p className='mt-1 text-sm text-gray-500'>{product.brand}</p>
           </div>
-          <p className='text-sm font-medium text-gray-900'>{product.price}</p>
+          <div>
+            <p className='text-sm font-medium text-gray-900' style={{ textDecoration: 'line-through' }}>
+              {product.price}
+            </p>
+            <p className='text-sm font-medium text-gray-900'>
+              {isNaN(product.price - adjustPrice) ? product.price - adjustPrice : product.price}
+            </p>
+          </div>
         </div>
       </div>
     </Link>

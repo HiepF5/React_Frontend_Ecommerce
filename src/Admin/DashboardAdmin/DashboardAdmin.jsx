@@ -1,24 +1,98 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Chart from 'chart.js/auto'
 import { CiShoppingTag } from 'react-icons/ci'
 import { FaCartArrowDown } from 'react-icons/fa'
 import { CiUser } from 'react-icons/ci'
 import { FaUserCheck } from 'react-icons/fa'
 import axios from 'axios'
-
-function DashboardAdmin() {
+import { useReactToPrint } from 'react-to-print'
+import { FaPrint } from 'react-icons/fa6'
+const PrintComponentDashboard = React.forwardRef((props, ref) => (
+  <div ref={ref}>
+    <div className='bg-gray-100'>
+      <div className='px-4 py-6'>
+        <div className=' text-2xl text-light'>Thống kê</div>
+        <div className='grid grid-cols-12 gap-4 mt-4'>
+          <div className='col-span-3 bg-white p-4 rounded-md'>
+            <div className='flex items-center gap-2'>
+              <CiShoppingTag />
+              <div>Doanh số</div>
+            </div>
+            <div className='flex flex-col mt-2'>
+              <b className='text-dark'>{props.totalTotalOrderAmount} VNĐ</b>
+            </div>
+          </div>
+          <div className='col-span-3 bg-white p-4 rounded-md'>
+            <div className='flex items-center gap-2'>
+              <FaCartArrowDown />
+              <div>Tổng số đơn</div>
+            </div>
+            <div className='flex flex-col mt-2'>
+              <b className='text-dark'>{props.totalOrders}</b>
+            </div>
+          </div>
+          <div className='col-span-3 bg-white p-4 rounded-md'>
+            <div className='flex items-center gap-2'>
+              <CiUser />
+              <div>Khách hàng</div>
+            </div>
+            <div className='flex flex-col mt-2'>
+              <b className='text-dark'>{props.countUser}</b>
+            </div>
+          </div>
+          <div className='col-span-3 bg-white p-4 rounded-md'>
+            <div className='flex items-center gap-2'>
+              <FaUserCheck />
+              <div>Tháng nhiều đơn nhất</div>
+            </div>
+            <div className='flex flex-col mt-2'>
+              <b className='text-dark'>{props.top1month}</b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='px-4 py-6'>
+        <div className='overflow-x-auto'>
+          <table className='table-auto min-w-full'>
+            <thead>
+              <tr className='bg-white'>
+                <th className='px-4 py-2'>STT</th>
+                <th className='px-4 py-2'>Full Name</th>
+                <th className='px-4 py-2'>Email</th>
+                <th className='px-4 py-2'>Phone Number</th>
+                <th className='px-4 py-2'>Address</th>
+                <th className='px-4 py-2'>Total Order</th>
+              </tr>
+            </thead>
+            <tbody className='bg-white'>
+              {props.users.map((user, index) => (
+                <tr key={user.userId}>
+                  <td className='border px-4 py-2 text-center'>{index + 1}</td>
+                  <td className='border px-4 py-2 text-center'>{user.fullName}</td>
+                  <td className='border px-4 py-2 text-center'>{user.email}</td>
+                  <td className='border px-4 py-2 text-center'>{user.phoneNumber}</td>
+                  <td className='border px-4 py-2 text-center'>{user.address}</td>
+                  <td className='border px-4 py-2 text-center'>{user.total_order}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+))
+function DashboardAdmin({ setShowPrint, showPrint }) {
   const [ordersData, setOrdersData] = useState([])
   const [users, setUsers] = useState([])
   const [top1month, setTop1month] = useState([])
   const [totalOrders, setTotalOrders] = useState(0)
   const [totalTotalOrderAmount, setTotalTotalOrderAmount] = useState(0)
   const [countUser, setCountUser] = useState(0)
-  const [showPrint, setShowPrint] = useState(false)
-  const handlePrint = () => {
-    setShowPrint(true) // Khi nhấp vào nút "In", hiển thị danh sách sản phẩm
-    window.print() // Kích hoạt hành động in trình duyệt
-    setShowPrint(false) // Sau khi in xong, ẩn danh sách sản phẩm
-  }
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current
+  })
+
   useEffect(() => {
     const fetchTop5Users = async () => {
       try {
@@ -155,7 +229,6 @@ function DashboardAdmin() {
     })
     return aggregatedData
   }
-
   const aggregateOrdersByMonth = (data) => {
     const aggregatedOrders = new Array(12).fill(0)
     data.forEach((order) => {
@@ -164,6 +237,19 @@ function DashboardAdmin() {
     })
     return aggregatedOrders
   }
+  const printRef = useRef()
+
+  const [alertMessage, setAlertMessage] = useState('')
+  const threshold = 1000
+  useEffect(() => {
+    if (totalOrders < threshold) {
+      setAlertMessage('Total orders are below the threshold!')
+    } else if (totalTotalOrderAmount > threshold) {
+      setAlertMessage('Total order amount exceeds the threshold!')
+    } else {
+      setAlertMessage('')
+    }
+  }, [totalOrders, totalTotalOrderAmount])
 
   return (
     <div className='container mx-auto'>
@@ -264,7 +350,25 @@ function DashboardAdmin() {
           </div>
         </div>
       </div>
-      <button onClick={handlePrint}>Print</button>
+      {/* <button onClick={handlePrint} className='p-2 bg-blue-100 mt-4'>
+        Xuất Report
+      </button> */}
+      <button
+        onClick={handlePrint}
+        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4'
+      >
+        <FaPrint />
+      </button>
+      <div style={{ display: 'none' }}>
+        <PrintComponentDashboard
+          ref={printRef}
+          users={users}
+          top1month={top1month}
+          countUser={countUser}
+          totalOrders={totalOrders}
+          totalTotalOrderAmount={totalTotalOrderAmount}
+        />
+      </div>
       {/* {showPrint && <ProductList products={products} />} */}
     </div>
   )
