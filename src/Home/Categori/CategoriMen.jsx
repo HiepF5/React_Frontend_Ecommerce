@@ -13,49 +13,49 @@ const ProductsData = [
   {
     id: 1,
     img: Clothes_1,
-    title: 'Shirts',
+    title: 'Oppo Find X3 Pro',
     aosDelay: '0'
   },
   {
     id: 2,
     img: Clothes_2,
-    title: 'Printed T-Shirts',
+    title: 'Samsung Galaxy S21 Ultra',
     aosDelay: '200'
   },
   {
     id: 3,
     img: Clothes_3,
-    title: 'Plain T-Shirts',
+    title: 'iPhone 13 Pro Max',
     aosDelay: '0'
   },
   {
     id: 4,
     img: Clothes_4,
-    title: 'Polo T-Shirts',
+    title: 'Nokia 8.3 5G',
     aosDelay: '200'
   },
   {
     id: 5,
     img: Clothes_5,
-    title: 'Hoodies & SweetShirt',
+    title: 'iPhone 15 Pro Max',
     aosDelay: '0'
   },
   {
     id: 6,
     img: Clothes_6,
-    title: 'ActiveWear',
+    title: 'iPhone 15 Pro',
     aosDelay: '200'
   },
   {
     id: 7,
     img: Clothes_7,
-    title: 'Boxers',
+    title: 'Samsung Galaxy S20',
     aosDelay: '200'
   },
   {
     id: 8,
     img: Clothes_8,
-    title: 'Jeans',
+    title: 'Samsung Galaxy S21 pro',
     aosDelay: '200'
   }
 ]
@@ -63,7 +63,7 @@ const CategoriMen = () => {
   return (
     <div>
       <div className='container'>
-        <TitleList title='Categories For Men' />
+        <TitleList title='Smart Phone Popular' />
         <div className='pt-[50px] flex flex-wrap gap-7 justify-between'>
           {ProductsData.map((data) => (
             <Card clothes={data} key={data.id} />

@@ -1,28 +1,28 @@
 import React from 'react'
-import Img1 from '../../assets/HomeImg/deals_1.jpg'
-import Img2 from '../../assets/HomeImg/deals_2.png'
+import Img1 from '../../assets/HomeImg/samsunga10.png'
+import Img2 from '../../assets/HomeImg/iphonese.png'
 const ProductsData = [
   {
     id: 1,
     img: Img1,
-    title: 'Low Price',
-    content: 'High Coziness',
-    description: 'Up to 50% OFF',
+    title: 'Samsung Galaxy A10',
+    content: 'Affordable and Reliable',
+    description: 'Get up to 30% OFF on selected models',
     aosDelay: '0'
   },
   {
     id: 2,
     img: Img2,
-    title: 'Beyoung Presents',
-    content: 'Breezy Summer Style',
-    description: 'Up to 50% OFF',
+    title: 'iPhone SE (2020)',
+    content: 'Sleek Design, Powerful Performance',
+    description: 'Enjoy up to 40% OFF on summer sale',
     aosDelay: '200'
   }
 ]
 
 const Deals = () => {
   return (
-    <div className=' text-white'>
+    <div className=' text-dark'>
       <div className='container pt-[100px] flex'>
         {ProductsData.map((data) => (
           <div key={data.id}>

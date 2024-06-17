@@ -1,5 +1,5 @@
 import React from 'react'
-import BigSav_1 from '../../assets/HomeImg/Big_Sav_1.png'
+import BigSav_1 from '../../assets/HomeImg/bigsav1.png'
 import BigSav_2 from '../../assets/HomeImg/Big_Sav_2.png'
 import BigSav_3 from '../../assets/HomeImg/Big_Sav_3.png'
 
@@ -10,8 +10,8 @@ const ProductsData = [
   {
     id: 1,
     img: BigSav_1,
-    title: 'Hawaiian Shirts',
-    description: 'Dress up in summer vibe',
+    title: 'Samsung Galaxy S21 Ultra',
+    description: 'Experience the ultimate',
     sale: 'UPTO 50% OFF',
     direction: 'left',
     aosDelay: '0'
@@ -19,8 +19,8 @@ const ProductsData = [
   {
     id: 2,
     img: BigSav_2,
-    title: 'Printed T-Shirts',
-    description: 'New Designs Every Week',
+    title: 'Oppo Find X3 Pro',
+    description: 'Innovative and stylish',
     sale: 'UPTO 40% OFF',
     direction: 'right',
 
@@ -29,8 +29,8 @@ const ProductsData = [
   {
     id: 3,
     img: BigSav_3,
-    title: 'Cargo Jogger',
-    description: 'Move with style & comfort',
+    title: 'iPhone 13 Pro Max',
+    description: 'The epitome of luxury',
     sale: 'UPTO 50% OFF',
     direction: 'right',
 

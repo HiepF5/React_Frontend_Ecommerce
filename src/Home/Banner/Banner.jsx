@@ -1,38 +1,41 @@
 import React from 'react'
-import Banner1 from '../../assets/HomeImg/banner_1.jpg'
+import Banner1 from '../../assets/HomeImg/iphone.png'
+import Banner2 from '../../assets/HomeImg/samsung.png'
+import Banner3 from '../../assets/HomeImg/oppo.png'
+import Banner4 from '../../assets/HomeImg/nokia.png'
 import Slider from 'react-slick'
 const ImageList = [
   {
     id: 1,
     img: Banner1,
-    title: 'T-Shift / Top',
-    season: 'Spring',
-    name: 'Value Pack',
-    description: 'cool / colorful /comfy'
+    title: 'Apple / iPhone 14',
+    season: 'Fall',
+    name: 'Pro Pack',
+    description: 'elegant / powerful / innovative'
   },
   {
     id: 2,
-    img: Banner1,
-    title: 'T-Shift / Top',
-    season: 'Summer',
-    name: 'Value Pack',
-    description: 'cool / colorful /comfy'
+    img: Banner2,
+    title: 'Samsung / Galaxy S23',
+    season: 'Winter',
+    name: 'Tech Pack',
+    description: 'dynamic / high-speed / versatile'
   },
   {
     id: 3,
-    img: Banner1,
-    title: 'T-Shift / Top',
-    season: 'Autumn',
-    name: 'Value Pack',
-    description: 'cool / colorful /comfy'
+    img: Banner3,
+    title: 'Oppo / Find X6',
+    season: 'Spring',
+    name: 'Style Pack',
+    description: 'sleek / advanced / vibrant'
   },
   {
     id: 4,
-    img: Banner1,
-    title: 'T-Shift / Top',
-    season: 'Winter',
-    name: 'Value Pack',
-    description: 'cool / colorful /comfy'
+    img: Banner4,
+    title: 'Nokia / XR21',
+    season: 'Summer',
+    name: 'Durability Pack',
+    description: 'rugged / reliable / long-lasting'
   }
 ]
 const Banner = () => {

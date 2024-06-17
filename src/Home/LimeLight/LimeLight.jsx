@@ -10,32 +10,32 @@ const ProductsData = [
   {
     id: 1,
     img: Product_1,
-    title: 'Black SweatShirt with Black',
-    brand: 'Jhanvi Brand',
+    title: 'Samsung Galaxy S21 Ultra',
+    brand: 'Samsung',
     price: '$123.00',
     aosDelay: '200'
   },
   {
     id: 2,
     img: Product_2,
-    title: 'Line Pattern Black Hat',
-    brand: 'AS Brand',
+    title: 'Oppo Find X3 Pro',
+    brand: 'Oppo',
     price: '$37.00',
     aosDelay: '200'
   },
   {
     id: 3,
     img: Product_3,
-    title: 'Black Shorts',
-    brand: 'MM Brand',
+    title: 'iPhone 13 Pro Max',
+    brand: 'Apple',
     price: '$37.00',
     aosDelay: '200'
   },
   {
     id: 4,
     img: Product_4,
-    title: 'Levender Hoodie with Black',
-    brand: 'Nike Brand',
+    title: 'Nokia 8.3 5G',
+    brand: 'Nokia',
     price: '$119.00',
     aosDelay: '200'
   }

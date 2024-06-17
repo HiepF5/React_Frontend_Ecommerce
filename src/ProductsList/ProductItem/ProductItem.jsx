@@ -23,9 +23,7 @@ function ProductItem({ product, adjustPrice }) {
             <p className='text-sm font-medium text-gray-900' style={{ textDecoration: 'line-through' }}>
               {product.price}
             </p>
-            <p className='text-sm font-medium text-gray-900'>
-              {isNaN(product.price - adjustPrice) ? product.price - adjustPrice : product.price}
-            </p>
+            <p className='text-sm font-medium text-gray-900'>{product.price - adjustPrice}</p>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useProducts } from '../../Store/ProductsStore'
+import { toast } from 'react-toastify'
 const Mds = () => {
   const [newPrice, setNewPrice] = useState(0) // Giá mới của sản phẩm
   const setAdjustPrice = useProducts((state) => state.setAdjustPrice)
@@ -19,6 +20,7 @@ const Mds = () => {
     // Xử lý logic khi ADMIN chọn điều chỉnh giá sản phẩm
     setAdjustPrice(newPrice)
     setAdjustPriceVisible(false)
+    toast.success(`Cập nhật giá, Giá đã giảm ${newPrice} so với giá gốc `)
   }
 
   const showApplyPromotionModal = () => {
@@ -42,6 +44,7 @@ const Mds = () => {
     setBrandKey(selectedProduct)
 
     setApplyPromotionVisible(false)
+    toast.success(`Cập nhật các ưu đãi để tăng doanh thu `)
   }
   return (
     <div className='flex flex-col items-center'>

@@ -10,25 +10,25 @@ const ProductsData = [
   {
     id: 1,
     img: Clothes_9,
-    title: 'Hoodies & SweetShirt',
+    title: 'Iphone 16',
     aosDelay: '200'
   },
   {
     id: 2,
     img: Clothes_10,
-    title: 'Coats & Parkas',
+    title: 'Samsung S23 Ultra',
     aosDelay: '200'
   },
   {
     id: 3,
     img: Clothes_11,
-    title: 'Tees & T-Shirt',
+    title: 'Samsung S23 Ultra Pro',
     aosDelay: '200'
   },
   {
     id: 4,
     img: Clothes_12,
-    title: 'Boxers',
+    title: 'Oppo Realmy 16',
     aosDelay: '200'
   }
 ]
@@ -36,7 +36,7 @@ const CategoriWomen = () => {
   return (
     <div>
       <div className='container'>
-        <TitleList title='Categories For Women' />
+        <TitleList title='Smart Phone News' />
         <div className='pt-[50px] flex flex-wrap gap-7 justify-between'>
           {ProductsData.map((data) => (
             <Card clothes={data} key={data.id} />

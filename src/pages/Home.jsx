@@ -20,13 +20,13 @@ const Home = () => {
       <Banner />
       <Deals />
       <NewArrival />
-      <BigSavingZone />
+      {/* <BigSavingZone />
       <FashionBetter />
       <CategoriMen />
       <CategoriWomen />
       <TopBrand />
       <LimeLight />
-      <Feedback />
+      <Feedback /> */}
       <Footer />
     </div>
   )

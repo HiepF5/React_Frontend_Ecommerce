@@ -10,10 +10,10 @@ const FashionBetter = () => {
             className='absolute w-[614px] h-[615px]
            text-white flex flex-col gap-4 justify-center pl-[70px]'
           >
-            <h1 className='w-[466px] text-3xl font-bold'>WE MADE YOUR EVERYDAY FASHION BETTER!</h1>
+            <h1 className='w-[466px] text-3xl font-bold'>EXPERIENCE THE LATEST IN MOBILE TECHNOLOGY!</h1>
             <h4 className='w-[350px] text-lg leading-8 tracking-tight'>
-              In our journey io improve everyday fashion euphoria presents EVERYDAY wear range - Comfortable &
-              Affordable fashion 24/7
+              Explore our latest collection of cutting-edge smartphones - Powerful features and sleek designs redefine
+              mobile experience.
             </h4>
             <div>
               <button
